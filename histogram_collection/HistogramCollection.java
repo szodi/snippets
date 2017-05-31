@@ -1,6 +1,9 @@
 package histogram_collection;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+
 
 /**
  * Created by szodi on 2017.05.28..
