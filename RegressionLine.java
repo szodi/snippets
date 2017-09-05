@@ -21,10 +21,10 @@ public class RegressionLine
 
 	public RegressionLine(Collection<Point> points)
 	{
-		meanX = points.stream().collect(Collectors.averagingDouble(Point::getX));
-		meanY = points.stream().collect(Collectors.averagingDouble(Point::getY));
-		double v1 = points.stream().collect(Collectors.summingDouble(p -> (p.x - meanX) * (p.y - meanY)));
-		double v2 = points.stream().collect(Collectors.summingDouble(p -> (p.x - meanX) * (p.x - meanX)));
+		meanX = points.parallelStream().collect(Collectors.averagingDouble(Point::getX));
+		meanY = points.parallelStream().collect(Collectors.averagingDouble(Point::getY));
+		double v1 = points.parallelStream().collect(Collectors.summingDouble(p -> (p.x - meanX) * (p.y - meanY)));
+		double v2 = points.parallelStream().collect(Collectors.summingDouble(p -> (p.x - meanX) * (p.x - meanX)));
 		slope = v1 / v2;
 		intercept = meanY - slope * meanX;
 	}
