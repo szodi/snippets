@@ -1,0 +1,49 @@
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class LockPicker implements Iterator<Object[]> {
+	Object[][] values;
+	int[] currentIndices;
+	int[] maxIndices;
+	private Object[] actuals;
+
+	public LockPicker(Object[][] values) {
+		this.values = values;
+		actuals = new Object[values.length];
+		currentIndices = new int[values.length];
+		maxIndices = new int[values.length];
+		for (int i = 0; i < values.length; i++) {
+			maxIndices[i] = values[i].length - 1;
+			actuals[i] = values[i][currentIndices[i]];
+		}
+	}
+
+	public boolean hasNext() {
+		return !Arrays.equals(currentIndices, maxIndices);
+	}
+
+	public Object[] next() {
+		for (int i = 0; i < values.length; i++) {
+			currentIndices[i] = (currentIndices[i] + 1) % values[i].length;
+			actuals[i] = values[i][currentIndices[i]];
+			if (currentIndices[i] != 0) {
+				break;
+			}
+		}
+		return actuals;
+	}
+  
+//  Test
+//	public static final void main(String[] args) {
+//		Integer[] odds = {1, 3, 5};
+//		Character[] symbols = {'?'};
+//		Character[] chars = {'a', 'b', 'c', 'd'};
+//		Integer[] evens = {2, 4};
+//		Object[][] values = new Object[][]{odds, symbols, chars, evens};
+//		LockPicker lockPicker = new LockPicker(values);
+//		while (lockPicker.hasNext()) {
+//			Object[] actual = lockPicker.next();
+//			System.out.println(Arrays.toString(actual));
+//		}
+//	}
+}
